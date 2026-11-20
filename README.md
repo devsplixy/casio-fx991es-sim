@@ -1,4 +1,4 @@
-# ![icon](assets/app.ico) FX-991ES PLUS Simulator
+<h1><img src="assets/app.ico" width="24" height="24"> FX-991ES PLUS Simulator</h1>
 
 ![FX-991ES PLUS Simulator](docs/calculator.png)
 
