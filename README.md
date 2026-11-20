@@ -20,9 +20,9 @@ This is a simulation, not an emulator. It contains no ROM or firmware; the calcu
 
 - Numbers and Numpad-Numbers both work.
 - `SHIFT` + `AC` closes the calculator.
-- Arrous Work.
-- Size and contrast are saved in `HKCU\Software\CASIO\FX-991ES PLUS`.
-- No runtime folders are created beside the executable.
+- Arrows Work.
+- Size and contrast are can be changed at SHIFT + SETUP.
+- No runtime folders (Webview) are created beside the executable.
 
 ## Build from source
 
