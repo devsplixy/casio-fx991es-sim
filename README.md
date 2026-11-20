@@ -6,6 +6,8 @@ Windows simulator of the CASIO fx-991ES PLUS (2nd Edition).
 
 This is a simulation, not an emulator. It contains no ROM or firmware; the calculator functions were written in code. You must own the physical calculator to use it.
 
+⚠️ This project is not affiliated with, endorsed by, or sponsored by CASIO in any way.
+
 ## Requirements
 
 - Windows 10 or 11
