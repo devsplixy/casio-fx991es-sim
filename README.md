@@ -1,6 +1,6 @@
 <h1><img src="assets/app.ico" width="24" height="24"> CASIO FX-991ES PLUS Simulator</h1>
 
-![FX-991ES PLUS Simulator](docs/calculator.png)
+<img src="docs/calculator.png" width="273" height="568">
 
 Windows simulator of the CASIO fx-991ES PLUS (2nd Edition).
 
