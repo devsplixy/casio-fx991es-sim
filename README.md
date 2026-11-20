@@ -1,4 +1,4 @@
-# CASIO FX-991ES PLUS Simulator
+# FX-991ES PLUS Simulator
 
 ![FX-991ES PLUS Simulator](docs/calculator.png)
 
@@ -10,3 +10,23 @@ This is a simulation, not an emulator. It contains no ROM or firmware; the calcu
 
 - Windows 10 or 11
 - WebView2 Runtime
+
+## Releases
+
+- `fx991es-sim-setup.exe`
+- `fx991es-sim-portable.zip`
+
+## Controls
+
+- Numbers and Numpad-Numbers both work.
+- `SHIFT` + `AC` closes the calculator.
+- Arrous Work.
+- Size and contrast are saved in `HKCU\Software\CASIO\FX-991ES PLUS`.
+- No runtime folders are created beside the executable.
+
+## Build from source
+
+```powershell
+cargo build --release
+cargo build --release --features installed
+```
