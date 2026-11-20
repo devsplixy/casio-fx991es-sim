@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASIO fx-991ES PLUS - 2nd Edition</title>
+  <style>/*__STYLES__*/</style>
+</head>
+<body><div id="scale-root">
+
+  <div class="calc-outer" id="calcOuter">
+    <div class="calc-inner" id="calcInner">
+      <div class="plastic-grain"></div>
+
+      <div class="top-header-grid">
+        <div class="brand-col">
+          <div class="casio-logo">CASIO</div>
+          <div class="model-name">fx-991ES PLUS</div>
+          <div class="v-pam">NATURAL-V.P.A.M.</div>
+        </div>
+        <div class="solar-col">
+          <div class="solar-bezel" id="solar-panel" role="button" tabindex="0">
+            <div class="solar-cell"></div>
+          </div>
+          <div class="edition-label">2nd edition</div>
+        </div>
+      </div>
+
+      <div class="screen-housing">
+        <div class="lcd-panel" id="lcd">
+          <div class="lcd-status-bar">
+            <div class="lcd-status-group">
+              <span id="ind-s" class="status-badge">S</span>
+              <span id="ind-a" class="status-badge">A</span>
+              <span id="ind-m" class="status-text-ind">M</span>
+              <span id="ind-sto" class="status-text-ind">STO</span>
+              <span id="ind-rcl" class="status-text-ind">RCL</span>
+              <span id="ind-mode" class="status-text-ind"></span>
+            </div>
+            <div class="lcd-status-group">
+              <span id="ind-ang" class="status-badge">D</span>
+              <span id="ind-fmt" class="status-badge">FIX</span>
+              <span id="ind-io" class="status-text-ind">Math</span>
+              <span id="ind-arrows" class="status-text-ind"></span>
+              <span id="ind-disp" class="status-text-ind">Disp</span>
+            </div>
+          </div>
+
+          <div id="lcdBody" class="lcd-body-wrap">
+            <div class="lcd-expr-line no-scrollbar" id="lcd-expr-wrap">
+              <div id="lcd-expr" class="math-row"><span class="lcd-cursor-ins"></span></div>
+            </div>
+            <div class="lcd-res-line" id="lcd-res"></div>
+          </div>
+          <div id="lcd-overlay" class="lcd-overlay hidden"></div>
+        </div>
+      </div>
+
+      <div class="control-zone">
+        <div class="pill-track-left"></div>
+        <div class="pill-track-right"></div>
+
+        <div class="ctrl-slot ctrl-slot-shift">
+          <div class="ctrl-label lbl-gold">SHIFT</div>
+          <button type="button" class="round-metal-btn" data-key="SHIFT" aria-label="SHIFT"></button>
+        </div>
+
+        <div class="ctrl-slot ctrl-slot-alpha">
+          <div class="ctrl-label lbl-pink">ALPHA</div>
+          <button type="button" class="round-metal-btn" data-key="ALPHA" aria-label="ALPHA"></button>
+        </div>
+
+        <div class="replay-rosette">
+          <div class="replay-cavity-bg"></div>
+          <div class="replay-center-web"></div>
+          <button type="button" class="dpad-lobe lobe-up" data-key="UP" aria-label="Up"></button>
+          <button type="button" class="dpad-lobe lobe-down" data-key="DOWN" aria-label="Down"></button>
+          <button type="button" class="dpad-lobe lobe-left" data-key="LEFT" aria-label="Left"></button>
+          <button type="button" class="dpad-lobe lobe-right" data-key="RIGHT" aria-label="Right"></button>
+        </div>
+
+        <div class="ctrl-slot ctrl-slot-mode">
+          <div class="ctrl-label">
+            <span class="lbl-white" style="font-size:8.2px;">MODE</span>
+            <span class="lbl-gold" style="font-size:8.2px;">SETUP</span>
+          </div>
+          <button type="button" class="round-metal-btn" data-key="MODE" aria-label="MODE SETUP"></button>
+        </div>
+
+        <div class="ctrl-slot ctrl-slot-on">
+          <div class="ctrl-label lbl-white">ON</div>
+          <button type="button" class="round-metal-btn" data-key="ON" aria-label="ON"></button>
+        </div>
+      </div>
+
+      <div class="sci-grid">
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold">SOLVE</span><span class="lbl-pink">=</span></div>
+          <button type="button" class="sci-btn corner-tl" data-key="CALC">CALC</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold">d/dx■</span><span class="lbl-pink">:</span></div>
+          <button type="button" class="sci-btn corner-tr" data-key="INT">
+            <span style="font-size:16px;font-weight:400;">∫<span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;vertical-align:middle;margin:0 1px;"><sup style="font-size:8.8px;line-height:1;">□</sup><sub style="font-size:8.8px;line-height:1;">□</sub></span>■</span>
+          </button>
+        </div>
+
+        <div class="sci-dpad-spacer"></div>
+
+        <div class="sci-cell">
+          <div class="sub-label lbl-gold"><i style="font-family:serif;">x</i>!</div>
+          <button type="button" class="sci-btn corner-tl" data-key="INV">
+            <span><i class="math-serif">x</i><sup style="font-size:7.5px;margin-left:0.5px;">-1</sup></span>
+          </button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label lbl-gold">Σ</div>
+          <button type="button" class="sci-btn corner-tr" data-key="LOGB">
+            <span style="display:flex;align-items:center;font-size:11px;letter-spacing:-0.04em;">
+              log<sub style="display:inline-block;width:3.5px;height:3.5px;background:#fff;margin:0 1px;transform:translateY(3px);"></sub><span style="display:inline-block;width:4.5px;height:5.5px;border:1px solid #fff;margin-left:0.5px;"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label lbl-gold">
+            <span style="display:inline-flex;align-items:center;gap:1px;">
+              <span class="box-hollow" style="width:4px;height:4px;"></span>
+              <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;">
+                <span class="box-solid" style="width:3.5px;height:3px;"></span>
+                <span style="width:100%;height:1px;background:currentColor;margin:0.5px 0;"></span>
+                <span class="box-hollow" style="width:3.5px;height:3px;"></span>
+              </span>
+            </span>
+          </div>
+          <button type="button" class="sci-btn" data-key="FRAC">
+            <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;">
+              <span class="box-solid" style="width:4.5px;height:4.5px;margin-bottom:1px;"></span>
+              <span style="width:10px;height:1px;background:#fff;"></span>
+              <span class="box-hollow" style="width:4.5px;height:4.5px;margin-top:1px;"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:7.8px;">³√<span class="box-solid" style="width:3.5px;height:3.5px;"></span></span>
+            <span class="lbl-pink" style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;">
+              <span style="width:5px;height:1px;background:currentColor;margin-bottom:1px;"></span>
+              <span class="box-solid" style="width:4px;height:4px;"></span>
+            </span>
+          </div>
+          <button type="button" class="sci-btn" data-key="SQRT">
+            <span style="display:flex;align-items:center;font-size:11px;">√<span class="box-solid" style="width:5px;height:5px;margin-left:1px;border-top:1px solid #fff;"></span></span>
+          </button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold">x³</span><span class="lbl-blue">DEC</span></div>
+          <button type="button" class="sci-btn" data-key="SQR">
+            <span><i class="math-serif">x</i><sup style="font-size:8.8px;margin-left:0.5px;">2</sup></span>
+          </button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:7.8px;"><sup>x</sup>√<span class="box-hollow" style="width:3.5px;height:3.5px;"></span></span>
+            <span class="lbl-blue">HEX</span>
+          </div>
+          <button type="button" class="sci-btn" data-key="POW">
+            <span><i class="math-serif">x</i><sup style="display:inline-block;width:4.5px;height:4.5px;background:#fff;margin-left:2px;transform:translateY(-3px);"></sup></span>
+          </button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold">10<sup>■</sup></span><span class="lbl-blue">BIN</span></div>
+          <button type="button" class="sci-btn" data-key="LOG">log</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold"><i style="font-family:serif;">e</i><sup>■</sup></span><span class="lbl-blue">OCT</span></div>
+          <button type="button" class="sci-btn" data-key="LN">ln</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold">∠</span><span class="lbl-pink">A</span></div>
+          <button type="button" class="sci-btn" data-key="NEG">(−)</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:7.8px;">←</span>
+            <span class="lbl-pink">B</span>
+          </div>
+          <button type="button" class="sci-btn" style="letter-spacing:-0.04em;font-size:11px;" data-key="DMS">° ’ ’’</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold">Abs</span><span class="lbl-pink">C</span></div>
+          <button type="button" class="sci-btn" data-key="HYP">hyp</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:7.8px;">sin⁻¹</span>
+            <span class="lbl-pink">D</span>
+          </div>
+          <button type="button" class="sci-btn" data-key="SIN">sin</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:7.8px;">cos⁻¹</span>
+            <span class="lbl-pink">E</span>
+          </div>
+          <button type="button" class="sci-btn" data-key="COS">cos</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:7.8px;">tan⁻¹</span>
+            <span class="lbl-pink">F</span>
+          </div>
+          <button type="button" class="sci-btn" data-key="TAN">tan</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label lbl-gold">STO</div>
+          <button type="button" class="sci-btn corner-bl" data-key="RCL">RCL</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between"><span class="lbl-gold">←</span><span class="lbl-pink" style="font-style:italic;">i</span></div>
+          <button type="button" class="sci-btn" data-key="ENG">ENG</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label lbl-gold">%</div>
+          <button type="button" class="sci-btn" data-key="LPAR">(</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold">,</span>
+            <span class="lbl-pink">X</span>
+          </div>
+          <button type="button" class="sci-btn" data-key="RPAR">)</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:6.3px;">a b/c⇔d/c</span>
+            <span class="lbl-pink">Y</span>
+          </div>
+          <button type="button" class="sci-btn" style="font-size:11px;" data-key="SD">S⇔D</button>
+        </div>
+
+        <div class="sci-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold">M-</span>
+            <span class="lbl-pink">M</span>
+          </div>
+          <button type="button" class="sci-btn corner-br" data-key="MPLUS">M+</button>
+        </div>
+      </div>
+
+      <div class="num-grid">
+        <div class="num-cell">
+          <div class="sub-label lbl-gold">CONST</div>
+          <button type="button" class="num-btn corner-tl" data-key="7">7</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold">CONV</div>
+          <button type="button" class="num-btn" data-key="8">8</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold shifted-label" data-shift-key="9" title="SHIFT + CLR">CLR</div>
+          <button type="button" class="num-btn" data-key="9">9</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold">INS</div>
+          <button type="button" class="num-btn green-btn" data-key="DEL">DEL</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold">OFF</div>
+          <button type="button" class="num-btn green-btn corner-tr" data-key="AC">AC</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold" style="font-size:7.6px;">┌MATRIX┐</div>
+          <button type="button" class="num-btn" data-key="4">4</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold" style="font-size:7.6px;">┌VECTOR┐</div>
+          <button type="button" class="num-btn" data-key="5">5</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label"></div>
+          <button type="button" class="num-btn" data-key="6">6</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold"><i style="font-family:serif;">n</i>P<i style="font-family:serif;">r</i></span>
+          </div>
+          <button type="button" class="num-btn" style="font-size:24px;font-weight:400;" data-key="MUL">×</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold"><i style="font-family:serif;">n</i>C<i style="font-family:serif;">r</i></span>
+          </div>
+          <button type="button" class="num-btn" style="font-size:24px;font-weight:400;" data-key="DIV">÷</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold" style="font-size:7.8px;">┌STAT┐</div>
+          <button type="button" class="num-btn" data-key="1">1</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold" style="font-size:7.6px;">┌CMPLX┐</div>
+          <button type="button" class="num-btn" data-key="2">2</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold" style="font-size:7.6px;">┌BASE┐</div>
+          <button type="button" class="num-btn" data-key="3">3</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold">Pol</span>
+          </div>
+          <button type="button" class="num-btn" style="font-size:24px;font-weight:400;" data-key="ADD">+</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold">Rec</span>
+          </div>
+          <button type="button" class="num-btn" style="font-size:24px;font-weight:400;" data-key="SUB">−</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label lbl-gold">Rnd</div>
+          <button type="button" class="num-btn corner-bl" data-key="0">0</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label sub-between">
+            <span class="lbl-gold" style="font-size:7.8px;">Ran#</span>
+            <span class="lbl-pink" style="font-size:7.8px;">RanInt</span>
+          </div>
+          <button type="button" class="num-btn" style="font-size:21px;line-height:1;" data-key="DOT">•</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label sub-between" style="padding:0 5px;">
+            <span class="lbl-gold">π</span>
+            <span class="lbl-pink" style="font-style:italic;font-family:serif;">e</span>
+          </div>
+          <button type="button" class="num-btn" style="font-size:16px;font-weight:400;letter-spacing:-0.02em;" data-key="EXP10">
+            <span>×10<sup style="font-style:italic;font-family:serif;font-size:9.5px;">x</sup></span>
+          </button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label drg-label">
+            <span class="lbl-gold drg-main" data-shift-key="ANS" title="SHIFT + DRG►">DRG►</span>
+            <span class="lbl-pink drg-preans">PreAns</span>
+          </div>
+          <button type="button" class="num-btn" style="font-size:18px;font-weight:400;" data-key="ANS">Ans</button>
+        </div>
+
+        <div class="num-cell">
+          <div class="sub-label"></div>
+          <button type="button" class="num-btn corner-br" style="font-size:24px;font-weight:400;" data-key="EQ">=</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  
+</div>
+  <div id="ownership-gate" class="hidden" role="dialog" aria-modal="true" aria-labelledby="ownership-title">
+    <div class="ownership-card">
+      <div class="ownership-title" id="ownership-title">OWNERSHIP CHECK</div>
+      <div class="ownership-question" id="ownership-question">
+        <div class="ownership-body">Do you own the same CASIO <strong>fx-991ES PLUS</strong> (2nd Edition) calculator in real life?</div>
+        <div class="ownership-note">This simulator is for people who own the physical calculator.</div>
+        <div class="ownership-actions">
+          <button type="button" class="ownership-btn yes" data-ownership="yes">CONFIRM</button>
+          <button type="button" class="ownership-btn no" data-ownership="no">CANCEL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="calc-cover" aria-hidden="true">
+    <span class="cover-dot tl"></span>
+    <span class="cover-dot tr"></span>
+    <span class="cover-dot bl"></span>
+    <span class="cover-dot br"></span>
+    <span class="cover-brand">CASIO</span>
+  </div>
+
+  <script>/*__STATE__*/</script>
+  <script>/*__BRIDGE__*/</script>
+  <script>/*__ENGINE__*/</script>
+  <script>/*__APP__*/</script>
+</body>
+</html>

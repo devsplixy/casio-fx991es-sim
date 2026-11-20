@@ -1,0 +1,39 @@
+[package]
+name = "casio-fx-991es-plus"
+version = "1.0.0"
+edition = "2024"
+description = "CASIO fx-991ES PLUS 2nd Edition"
+
+[package.metadata.winres]
+FileDescription = "CASIO calculator simulator"
+ProductName = "CASIO fx-991ES PLUS Simulator"
+OriginalFilename = "CASIO FX-991ES PLUS.exe"
+CompanyName = "devsplixy"
+
+[features]
+installed = []
+
+[build-dependencies]
+winres = "0.1.12"
+
+[dependencies]
+serde_json = "1.0.154"
+tao = "0.37.2"
+wry = "0.57.2"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61.2", features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_Security",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
