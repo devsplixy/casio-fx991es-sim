@@ -1,4 +1,4 @@
-# FX-991ES PLUS Simulator
+# ![icon](assets/app.ico) FX-991ES PLUS Simulator
 
 ![FX-991ES PLUS Simulator](docs/calculator.png)
 
