@@ -115,7 +115,7 @@ dependencies = [
 
 [[package]]
 name = "casio-fx-991es-plus"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "serde_json",
  "tao",

@@ -1,8 +1,8 @@
 [package]
 name = "casio-fx-991es-plus"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2024"
-description = "CASIO fx-991ES PLUS 2nd Edition"
+description = "CASIO fx-991ES PLUS 2nd Edition - native Rust shell, full 8-mode engine"
 
 [package.metadata.winres]
 FileDescription = "CASIO calculator simulator"

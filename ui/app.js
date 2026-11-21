@@ -82,6 +82,7 @@
     showMixed: false,
     showDMS: false,
     engShift: 0,
+    engActive: false,
     justEvaluated: false,
 
     history: [],
@@ -90,6 +91,7 @@
     ans: 0,
     ansObj: null,
     vars: { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, X: 0, Y: 0, M: 0 },
+    varObjs: {},
 
     statType: 1,
     statRows: [{ x: 0, y: 0, f: 1 }],
@@ -110,6 +112,14 @@
     isPoweringOff: false,
     bootOff: true
   };
+
+  function clearDisplayFlags() {
+    state.showDecimal = false;
+    state.showMixed = false;
+    state.showDMS = false;
+    state.engShift = 0;
+    state.engActive = false;
+  }
 
   
   const dom = {
@@ -158,6 +168,7 @@
     state.showMixed = false;
     state.showDMS = false;
     state.engShift = 0;
+    state.engActive = false;
     state.histIdx = -1;
   }
 
@@ -326,6 +337,7 @@
     if (state.justEvaluated) {
       state.justEvaluated = false;
       state.resultObj = null;
+      clearDisplayFlags();
       return;
     }
     const seq = getTargetSeq();
@@ -404,12 +416,14 @@
         const map = {
           n: 'n', sx: 'Σx', sx2: 'Σx²', sy: 'Σy', sy2: 'Σy²', sxy: 'Σxy',
           xbar: 'x̄', sigX: 'σx', sX: 'sx', ybar: 'ȳ', sigY: 'σy', sY: 'sy',
-          A: 'A', B: 'B', C: 'C', r: 'r', minX: 'minX', maxX: 'maxX', minY: 'minY', maxY: 'maxY'
+          A: 'A', B: 'B', C: 'C', r: 'r', minX: 'minX', maxX: 'maxX', minY: 'minY', maxY: 'maxY',
+          t: 't', xhat: 'x̂', yhat: 'ŷ', xhat1: 'x̂1', xhat2: 'x̂2'
         };
         return map[v.slice(5)] || v.slice(5);
       }
       if (v === '×10^') return '<span style="font-size:0.75em">×10</span>';
       if (v === 'i') return '<i>i</i>';
+      if (v === 'DMS') return '°';
       return escapeHTML(v);
     }
 
@@ -453,24 +467,24 @@
     const r = state.resultObj;
     if (!r) return '';
     if (r.kind === 'base') {
-      return `<span style="font-size:12px;margin-right:8px;opacity:0.75">${r.base[0]}</span>${E.formatBaseN(r.value, r.base)}`;
+      return `<span style="font-size:0.73em;margin-right:8px;opacity:0.75">${r.base[0]}</span>${E.formatBaseN(r.value, r.base)}`;
     }
     if (r.kind === 'polrec') {
-      return `<span style="font-size:15px">${escapeHTML(r.label)}</span>`;
+      return `<span style="font-size:0.91em">${escapeHTML(r.label)}</span>`;
     }
     if (r.kind === 'cmplx') {
       const html = E.formatComplex(r.value, state.settings, r.displayPolar ?? null);
-      return `<span style="font-size:${html.length > 16 ? 15 : 19}px">${html}</span>`;
+      return `<span style="font-size:${html.length > 16 ? 0.91 : 1.15}em">${html}</span>`;
     }
     if (r.kind === 'num') {
       if (state.showDMS) return E.formatDMS(r.value);
-      if (state.engShift !== 0) return E.formatNumber(r.value, state.settings, state.engShift);
+      if (state.engActive) return E.formatNumber(r.value, state.settings, state.engShift);
       if (state.settings.ioMode === 'Math' && !state.showDecimal && r.sym &&
           state.settings.numFmt === 'Norm') {
         const useMixed = state.showMixed || state.settings.fracFmt === 'ab/c';
         return r.sym.toHTML(useMixed);
       }
-      return E.formatNumber(r.value, state.settings, 0);
+      return E.formatNumber(r.value, state.settings, null);
     }
     return '';
   }
@@ -663,7 +677,9 @@
       const item = ov.results[ov.idx];
       const valHTML = item.cmplx
         ? E.formatComplex(item.cmplx, state.settings)
-        : (item.num !== undefined ? E.formatNumber(item.num, state.settings) : escapeHTML(item.val || ''));
+        : (item.sym && state.settings.ioMode === 'Math' && state.settings.numFmt === 'Norm'
+          ? item.sym.toHTML(state.showMixed || state.settings.fracFmt === 'ab/c')
+          : (item.num !== undefined ? E.formatNumber(item.num, state.settings) : escapeHTML(item.val || '')));
       dom.overlay.innerHTML = `
         <div class="menu-title"><span>Result</span><span>${ov.idx + 1}/${ov.results.length} ▲▼</span></div>
         <div style="margin-top:8px;font-size:15px">${escapeHTML(item.label)}</div>
@@ -721,6 +737,18 @@
     }
   }
 
+  function fitResultLine() {
+    const el = dom.res;
+    const scroller = el.classList.contains('lcd-res-line') ? el : (el.parentElement || el);
+    el.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(el).fontSize) || 16.5;
+    while (scroller.scrollWidth > scroller.clientWidth && size > 10) {
+      size -= 0.5;
+      el.style.fontSize = `${size}px`;
+    }
+    scroller.scrollLeft = scroller.scrollWidth > scroller.clientWidth ? scroller.scrollWidth : 0;
+  }
+
   function render() {
     const contrastAlpha = 0.55 + (state.settings.contrast / 10) * 0.45;
     document.documentElement.style.setProperty('--lcd-contrast', contrastAlpha.toFixed(2));
@@ -731,12 +759,13 @@
     if (!state.overlay) {
       if (state.mode === 'BASE-N' && state.expr.length === 0 && !state.resultObj) {
         dom.expr.innerHTML = renderSeqHTML(state.expr, []);
-        dom.res.innerHTML = `<span style="font-size:12px;margin-right:8px;opacity:0.75">${state.base[0]}</span>0`;
+        dom.res.innerHTML = `<span class="lcd-res-value"><span style="font-size:0.73em;margin-right:8px;opacity:0.75">${state.base[0]}</span>0</span>`;
       } else {
         const prefix = state.mode === 'TABLE' ? '<span>f(X)=</span>' : '';
         dom.expr.innerHTML = prefix + renderSeqHTML(state.expr, []);
-        dom.res.innerHTML = renderResultHTML();
+        dom.res.innerHTML = `<span class="lcd-res-value">${renderResultHTML()}</span>`;
       }
+      fitResultLine();
       dom.exprWrap.scrollLeft = dom.exprWrap.scrollWidth;
     } else {
       dom.expr.innerHTML = '';
@@ -780,6 +809,7 @@
       mode: state.mode,
       base: state.base,
       angleUnit: state.settings.angleUnit,
+      settings: state.settings,
       vars: state.vars,
       matrices: state.matrices,
       vectors: state.vectors,
@@ -804,10 +834,7 @@
 
     try {
       const res = E.evaluateSequence(state.expr, buildEvalCtx(true));
-      state.showDecimal = false;
-      state.showMixed = false;
-      state.showDMS = false;
-      state.engShift = 0;
+      clearDisplayFlags();
 
       if (res.kind === 'mat') {
         state.matrices.MatAns = E.Matrix.clone(res.value);
@@ -994,6 +1021,13 @@
         { key: '6', label: 'MinMax', action: () => openStatVarPicker('MinMax', [
           ['1', 'minX', 'STAT:minX'], ['2', 'maxX', 'STAT:maxX'],
           ['3', 'minY', 'STAT:minY'], ['4', 'maxY', 'STAT:maxY']
+        ]) },
+        { key: '7', label: 'Dist', action: () => openStatVarPicker('Dist', [
+          ['1', 'P(', 'P('], ['2', 'Q(', 'Q('], ['3', 'R(', 'R('], ['4', 't', 'STAT:t']
+        ]) },
+        { key: '8', label: 'Est', action: () => openStatVarPicker('Est', [
+          ['1', 'x̂', 'STAT:xhat'], ['2', 'ŷ', 'STAT:yhat'],
+          ['3', 'x̂1', 'STAT:xhat1'], ['4', 'x̂2', 'STAT:xhat2']
         ]) }
       ]
     };
@@ -1368,7 +1402,7 @@
             ctx.vars = { ...ctx.vars, X: x };
             return E.evaluateSequence(side, ctx).value;
           };
-          const { root, diff } = E.solveEquation((x) => evalSide(lhs, x), (x) => evalSide(rhs, x), x0);
+          const { root, diff } = E.solveEquation((x) => evalSide(lhs, x), (x) => evalSide(rhs, x), x0, { variable: 'X' });
           state.vars.X = root;
           state.ans = root;
           state.overlay = {
@@ -1733,6 +1767,7 @@
         if (wasSto) {
           try {
             let val = state.ans;
+            let sym = state.ansObj && state.ansObj.kind === 'num' ? state.ansObj.sym : null;
             if (state.expr.length > 0 && !state.justEvaluated) {
               const res = E.evaluateSequence(state.expr, buildEvalCtx(true));
               val = res.value;
@@ -1740,8 +1775,10 @@
               state.ans = val;
               state.ansObj = res;
               state.justEvaluated = true;
+              if (res.kind === 'num') sym = res.sym || null;
             }
             state.vars[vName] = val;
+            state.varObjs[vName] = sym;
           } catch (err) {
             showError(err.message);
             return;
@@ -1753,7 +1790,7 @@
           state.expr.push({ t: 'tok', v: vName });
           state.resultObj = val instanceof E.Complex
             ? { kind: 'cmplx', value: val }
-            : { kind: 'num', value: Number(val), sym: null };
+            : { kind: 'num', value: Number(val), sym: state.varObjs[vName] || null };
           state.justEvaluated = true;
         }
         render();
@@ -1780,6 +1817,12 @@
     if (state.mode === 'BASE-N' && !isShift && !isAlpha) {
       const baseSwitch = { SQR: 'DEC', POW: 'HEX', LOG: 'BIN', LN: 'OCT' }[key];
       if (baseSwitch) {
+        try {
+          if (state.resultObj && state.resultObj.kind === 'base') E.formatBaseN(state.resultObj.value, baseSwitch);
+        } catch (err) {
+          showError(err.message);
+          return;
+        }
         state.base = baseSwitch;
         if (state.resultObj && state.resultObj.kind === 'base') {
           state.resultObj = { kind: 'base', value: state.resultObj.value, base: state.base };
@@ -1836,6 +1879,7 @@
         case 'ENG':
           if (state.resultObj && state.resultObj.kind === 'num') {
             state.engShift--;
+            state.engActive = true;
             state.showDMS = false;
           }
           break;
@@ -1847,6 +1891,7 @@
             state.showMixed = !state.showMixed;
             state.showDMS = false;
             state.engShift = 0;
+            state.engActive = false;
           }
           break;
         case 'MPLUS': applyMemoryDelta(-1); break;
@@ -1893,9 +1938,11 @@
       case 'DMS':
         if (state.justEvaluated && state.resultObj && state.resultObj.kind === 'num') {
           state.showDMS = !state.showDMS;
+          if (state.showDMS) state.showDecimal = false;
           state.engShift = 0;
+          state.engActive = false;
         } else {
-          insertNode({ t: 'tok', v: '°' });
+          insertNode({ t: 'tok', v: 'DMS' });
         }
         break;
       case 'HYP': openHypMenu(); break;
@@ -1908,6 +1955,7 @@
           insertNode({ t: 'tok', v: 'i' });
         } else if (state.resultObj && state.resultObj.kind === 'num') {
           state.engShift++;
+          state.engActive = true;
           state.showDMS = false;
         }
         break;
@@ -1915,9 +1963,10 @@
       case 'RPAR': insertNode({ t: 'tok', v: ')' }); break;
       case 'SD':
         if (state.resultObj && state.resultObj.kind === 'num') {
-          state.showDecimal = !state.showDecimal;
           state.showDMS = false;
           state.engShift = 0;
+          state.engActive = false;
+          state.showDecimal = !state.showDecimal;
         }
         break;
       case 'MPLUS': applyMemoryDelta(1); break;

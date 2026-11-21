@@ -1,0 +1,6 @@
+/target/
+/node_modules/
+/installer/build/
+/release/
+/ui/__*.html
+*.WebView2/
