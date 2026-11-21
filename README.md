@@ -6,6 +6,8 @@ Windows simulator of the CASIO fx-991ES PLUS (2nd Edition).
 
 This is a simulation, not an emulator. It contains no ROM or firmware; the calculator functions were written in code. You must own the physical calculator to use it.
 
+The engine is built in `JavaScript`, and the software is packaged using `Rust`.
+
 ⚠️ This project is not affiliated with, endorsed by, or sponsored by CASIO in any way.
 
 ## Requirements
@@ -21,9 +23,9 @@ This is a simulation, not an emulator. It contains no ROM or firmware; the calcu
 ## Controls
 
 - Numbers and Numpad-Numbers both work.
-- `SHIFT` + `AC` closes the calculator.
+- `ON` to turn the calculator on, `SHIFT` + `AC` closes the calculator.
 - Arrows Work.
-- Size and contrast are can be changed at SHIFT + SETUP.
+- Size and contrast can be changed at SHIFT + SETUP.
 - No runtime folders (Webview) are created beside the executable.
 
 ## Build from source
